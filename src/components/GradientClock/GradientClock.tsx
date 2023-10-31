@@ -1,6 +1,5 @@
-// const {width, height} = useWindowDimensions();
 import React, {useEffect} from 'react';
-import {StyleSheet, Text, useWindowDimensions, View} from 'react-native';
+import {Pressable, StyleSheet, Text, useWindowDimensions} from 'react-native';
 import {Canvas, Rect, SweepGradient, vec} from '@shopify/react-native-skia';
 import {
   Easing,
@@ -29,7 +28,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export const GradientClock = () => {
+interface GradientClockProps {
+  onPress?: () => void;
+}
+
+export const GradientClock = ({onPress}: GradientClockProps) => {
   const {height, width} = useWindowDimensions();
   const centerX = width / 2;
   const centerY = height / 2;
@@ -52,7 +55,7 @@ export const GradientClock = () => {
   }, [rotation]);
 
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={onPress}>
       <Canvas style={styles.container}>
         <Rect color={'black'} x={0} y={0} height={height} width={width}>
           <SweepGradient
@@ -67,6 +70,6 @@ export const GradientClock = () => {
       </Canvas>
       <Text style={styles.dayText}>DAY</Text>
       <Text style={styles.nightText}>NIGHT</Text>
-    </View>
+    </Pressable>
   );
 };

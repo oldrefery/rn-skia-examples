@@ -7,11 +7,22 @@ export const enum Samples {
   GRADIENT_CLOCK,
 }
 function App(): Element {
-  const [sample, _setSample] = useState<Samples>(Samples.GRADIENT_CLOCK);
+  const [sample, setSample] = useState<Samples>(Samples.GRADIENT_CLOCK);
+
+  const changeSample = () => {
+    switch (sample) {
+      case Samples.MATRIX:
+        setSample(Samples.GRADIENT_CLOCK);
+        return;
+      case Samples.GRADIENT_CLOCK:
+      default:
+        setSample(Samples.MATRIX);
+    }
+  };
 
   switch (sample) {
     case Samples.GRADIENT_CLOCK:
-      return <GradientClock />;
+      return <GradientClock onPress={changeSample} />;
     case Samples.MATRIX:
       return <Matrix />;
     default:
