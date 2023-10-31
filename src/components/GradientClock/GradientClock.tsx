@@ -58,7 +58,7 @@ export const GradientClock = () => {
           <SweepGradient
             c={centerVec}
             origin={centerVec}
-            colors={['white', 'grey', 'black']}
+            colors={['white', 'black']}
             start={0}
             end={360}
             transform={animatedRotation}
