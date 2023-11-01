@@ -84,7 +84,7 @@ function App(): Element {
       );
     case Samples.DONUT_CHART:
       return (
-        <View style={styles.container}>
+        <Pressable style={styles.container} onPress={changeSample}>
           <View style={styles.donutChartContainer}>
             <DonutChart
               strokeWidth={STROKE_WIDTH}
@@ -98,7 +98,7 @@ function App(): Element {
           <Pressable style={styles.button} onPress={animateChart}>
             <Text style={styles.buttonTitle}>Show animation</Text>
           </Pressable>
-        </View>
+        </Pressable>
       );
     default:
       throw new Error('unknown sample');
