@@ -40,7 +40,10 @@ export const Matrix = () => {
   const clock = useClock();
   const {width, height} = useWindowDimensions();
   const symbol = {width: width / COLS, height: height / ROWS};
-  const font = useFont(require('./matrix-code-nfi.otf'), symbol.height);
+  const font = useFont(
+    require('../../assets/fonts/matrix-code-nfi.otf'),
+    symbol.height,
+  );
   if (font === null) {
     return null;
   }
