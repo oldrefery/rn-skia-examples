@@ -33,6 +33,7 @@ const streams = cols.map(() =>
 const styles = StyleSheet.create({
   flex: {
     flex: 1,
+    width: '100%',
   },
 });
 

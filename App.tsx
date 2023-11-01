@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
 });
 
 function App(): Element {
-  const [sample, setSample] = useState<Samples>(Samples.DONUT_CHART);
+  const [sample, setSample] = useState<Samples>(Samples.MATRIX);
   const percentageComplete = 0.85;
   const animationState = useValue(0);
 
@@ -60,12 +60,14 @@ function App(): Element {
   const changeSample = () => {
     switch (sample) {
       case Samples.MATRIX:
-        setSample(Samples.DONUT_CHART);
-        return;
-      case Samples.DONUT_CHART:
         setSample(Samples.GRADIENT_CLOCK);
         return;
+      case Samples.DONUT_CHART:
+        setSample(Samples.MATRIX);
+        return;
       case Samples.GRADIENT_CLOCK:
+        setSample(Samples.DONUT_CHART);
+        return;
       default:
         setSample(Samples.MATRIX);
     }
@@ -75,7 +77,11 @@ function App(): Element {
     case Samples.GRADIENT_CLOCK:
       return <GradientClock onPress={changeSample} />;
     case Samples.MATRIX:
-      return <Matrix />;
+      return (
+        <Pressable style={styles.container} onPress={changeSample}>
+          <Matrix />
+        </Pressable>
+      );
     case Samples.DONUT_CHART:
       return (
         <View style={styles.container}>
