@@ -2,9 +2,9 @@ import React from 'react';
 import {
   Box,
   BoxShadow,
+  Circle,
   Group,
   LinearGradient,
-  Paint,
   Path,
   rect,
   rrect,
@@ -29,7 +29,7 @@ const c = vec(12 + r1, 12 + r1);
 const fromCircle = (cx: number, cy: number, r: number) =>
   rrect(rect(cx - r, cy - r, 2 * r, 2 * r), r, r);
 
-const colors = ['#2F08FF', '#9EECFF'];
+const colors = ['#2A10FF', '#9EFFFF'];
 interface ProgressBarProps {
   progress: SkiaValue<number>;
 }
@@ -83,13 +83,19 @@ export const ProgressBar = ({progress}: ProgressBarProps) => {
         color={'green'}
       />
       <Group>
-        <SweepGradient c={c} colors={colors} />
+        <SweepGradient c={vec(12 + r1, 12 + r1 + OFFSET_Y)} colors={colors} />
         <Path
           path={path}
           style={'stroke'}
           strokeWidth={15}
           strokeCap={'round'}
           end={progress}
+        />
+        <Circle
+          color={colors[0]}
+          r={7.5}
+          cx={12 + 2 * r1}
+          cy={12 + r1 + OFFSET_Y}
         />
       </Group>
     </Group>
