@@ -5,6 +5,7 @@ import {DonutChart} from './src/components/DonutChart/DonutChart';
 import {runTiming, useFont, useValue} from '@shopify/react-native-skia';
 import {PixelRatio, Pressable, StyleSheet, Text, View} from 'react-native';
 import {Easing} from 'react-native-reanimated';
+import {Neomorphism} from './src/components/Neomorphism/Neomorphism';
 
 const RADIUS = PixelRatio.roundToNearestPixel(130);
 const STROKE_WIDTH = 18;
@@ -12,6 +13,7 @@ export const enum Samples {
   MATRIX,
   DONUT_CHART,
   GRADIENT_CLOCK,
+  NEOMORPHISM,
 }
 
 const styles = StyleSheet.create({
@@ -38,7 +40,7 @@ const styles = StyleSheet.create({
 });
 
 function App(): Element {
-  const [sample, setSample] = useState<Samples>(Samples.MATRIX);
+  const [sample, setSample] = useState<Samples>(Samples.NEOMORPHISM);
   const percentageComplete = 0.85;
   const animationState = useValue(0);
 
@@ -60,13 +62,16 @@ function App(): Element {
   const changeSample = () => {
     switch (sample) {
       case Samples.MATRIX:
-        setSample(Samples.GRADIENT_CLOCK);
+        setSample(Samples.DONUT_CHART);
         return;
       case Samples.DONUT_CHART:
-        setSample(Samples.MATRIX);
+        setSample(Samples.GRADIENT_CLOCK);
         return;
       case Samples.GRADIENT_CLOCK:
-        setSample(Samples.DONUT_CHART);
+        setSample(Samples.NEOMORPHISM);
+        return;
+      case Samples.NEOMORPHISM:
+        setSample(Samples.MATRIX);
         return;
       default:
         setSample(Samples.MATRIX);
@@ -74,8 +79,6 @@ function App(): Element {
   };
 
   switch (sample) {
-    case Samples.GRADIENT_CLOCK:
-      return <GradientClock onPress={changeSample} />;
     case Samples.MATRIX:
       return (
         <Pressable style={styles.container} onPress={changeSample}>
@@ -100,6 +103,10 @@ function App(): Element {
           </Pressable>
         </Pressable>
       );
+    case Samples.GRADIENT_CLOCK:
+      return <GradientClock onPress={changeSample} />;
+    case Samples.NEOMORPHISM:
+      return <Neomorphism />;
     default:
       throw new Error('unknown sample');
   }
