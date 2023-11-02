@@ -105,7 +105,7 @@ function App(): Element {
     case Samples.GRADIENT_CLOCK:
       return <GradientClock onPress={changeSample} />;
     case Samples.NEOMORPHISM:
-      return <Neomorphism />;
+      return <Neomorphism onPress={changeSample} />;
     default:
       throw new Error('unknown sample');
   }
