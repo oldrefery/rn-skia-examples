@@ -51,7 +51,6 @@ function App(): Element {
   }
 
   const animateChart = () => {
-    console.log('run animateChart');
     animationState.current = 0;
 
     runTiming(animationState, percentageComplete, {

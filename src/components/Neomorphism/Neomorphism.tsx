@@ -6,6 +6,8 @@ import {
   mix,
   Path,
   runTiming,
+  useComputedValue,
+  useLoop,
   useTouchHandler,
   useValue,
 } from '@shopify/react-native-skia';
@@ -13,6 +15,7 @@ import {Dimensions, StyleSheet} from 'react-native';
 import {useDerivedValue} from 'react-native-reanimated';
 import {Switch} from './Switch';
 import {Button} from './Button';
+import {ProgressBar} from './ProgressBar';
 
 const {width} = Dimensions.get('window');
 const PADDING = 32;
@@ -22,20 +25,21 @@ const y = 75;
 export const Neomorphism = () => {
   const pressedButton = useValue(0);
   const pressedSwitch = useValue(0);
+  // const progress = useValue(0);
+  const t = useLoop({duration: 3000});
+  const xTime = useComputedValue(() => mix(t.current, 0, 180), [t]);
+  const progress = useComputedValue(() => xTime.current / 192, [xTime]);
 
-  const onTouchButton = useTouchHandler({
+  const onTouchSwitch = useTouchHandler({
     onStart: () => {
       runTiming(pressedButton, 1, {duration: 150});
+      // runTiming(progress, 1, {duration: 15000});
     },
-    onEnd: () => {
-      runTiming(pressedButton, 0, {duration: 150});
-    },
-  });
-  const onTouchSwitch = useTouchHandler({
     onEnd: () => {
       runTiming(pressedSwitch, pressedSwitch.current === 1 ? 0 : 1, {
         duration: 150,
       });
+      runTiming(pressedButton, 0, {duration: 150});
     },
   });
   const transform = useDerivedValue(
@@ -49,8 +53,9 @@ export const Neomorphism = () => {
 
   return (
     <Canvas style={styles.flex} onTouch={onTouchSwitch}>
-      {/*<Fill color={'red'} />*/}
       <Fill color={'#F0F0F3'} />
+      {/*<Fill color={'grey'} />*/}
+      {/*<Fill color={'#101010'} />*/}
       <Button
         x={x}
         y={y}
@@ -66,11 +71,12 @@ export const Neomorphism = () => {
       </Button>
       <Switch
         x={x}
-        y={y + size / 2}
+        y={y + size / 3}
         width={size}
         height={size}
         pressed={pressedSwitch}
       />
+      <ProgressBar progress={progress} />
     </Canvas>
   );
 };
