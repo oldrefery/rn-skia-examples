@@ -31,7 +31,7 @@ const fromCircle = (cx: number, cy: number, r: number) =>
 
 const colors = ['#2A10FF', '#9EFFFF'];
 interface ProgressBarProps {
-  progress: SkiaValue<number>;
+  progress: SkiaValue;
 }
 export const ProgressBar = ({progress}: ProgressBarProps) => {
   const font = useFont(require('../../assets/fonts/SF-Mono-Semibold.otf'), 32);
